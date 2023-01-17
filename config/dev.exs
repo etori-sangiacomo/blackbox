@@ -1,11 +1,11 @@
-use Mix.Config
+import Config
 
 # Configure your database
 config :blackbox, Blackbox.Repo,
   username: "postgres",
   password: "postgres",
   database: "blackbox_dev",
-  hostname: "localhost",
+  hostname: "blackbox_db",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
