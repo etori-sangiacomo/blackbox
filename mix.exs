@@ -45,7 +45,8 @@ defmodule Blackbox.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:ex_machina, "~> 2.7.0", only: :test}
+      {:ex_machina, "~> 2.7.0", only: :test},
+      {:oban, "~> 2.13"}
     ]
   end
 

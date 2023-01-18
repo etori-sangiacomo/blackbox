@@ -14,9 +14,10 @@ defmodule Blackbox.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Blackbox.PubSub},
       # Start the Endpoint (http/https)
-      BlackboxWeb.Endpoint
+      BlackboxWeb.Endpoint,
       # Start a worker by calling: Blackbox.Worker.start_link(arg)
       # {Blackbox.Worker, arg}
+      {Oban, oban_config()}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -30,5 +31,9 @@ defmodule Blackbox.Application do
   def config_change(changed, _new, removed) do
     BlackboxWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  def oban_config do
+    Application.fetch_env!(:blackbox, Oban)
   end
 end
