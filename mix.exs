@@ -7,10 +7,13 @@ defmodule Blackbox.MixProject do
       version: "0.1.0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      preferred_cli_env: [
+        "ecto.reset.test": :test
+      ]
     ]
   end
 
@@ -41,7 +44,9 @@ defmodule Blackbox.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:ex_machina, "~> 2.7.0", only: :test},
+      {:oban, "~> 2.13"}
     ]
   end
 
@@ -53,9 +58,11 @@ defmodule Blackbox.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
+      seeds: ["run priv/repo/seeds.exs"],
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
+      "ecto.reset.test": ["ecto.drop", "ecto.create", "ecto.migrate"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]
   end
