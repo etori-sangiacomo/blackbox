@@ -7,5 +7,6 @@ defmodule BlackboxWeb.Router do
 
   scope "/api", BlackboxWeb do
     pipe_through :api
+    resources "/users", UserController, only: [:create]
   end
 end
