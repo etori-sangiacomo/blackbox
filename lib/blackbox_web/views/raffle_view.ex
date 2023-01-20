@@ -15,10 +15,16 @@ defmodule BlackboxWeb.RaffleView do
   end
 
   def render("raffle_result.json", %{raffle: raffle}) do
-    %{
-      id: raffle.winner.id,
-      name: raffle.winner.name,
-      email: raffle.winner.email
-    }
+    case raffle.winner == nil do
+      true ->
+        %{data: "Raffle processed but there was no user subscribe"}
+
+      false ->
+        %{
+          id: raffle.winner.id,
+          name: raffle.winner.name,
+          email: raffle.winner.email
+        }
+    end
   end
 end
